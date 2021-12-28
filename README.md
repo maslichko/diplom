@@ -5,6 +5,7 @@
 ![alt text](https://github.com/maslichko/diplom/blob/main/images/lec.jpg?raw=true)
 
 Таблица курсов
+
 ![alt text](https://github.com/maslichko/diplom/blob/main/images/courses.jpg?raw=true)
 
 Таблица дисциплин
