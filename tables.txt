@@ -1,0 +1,85 @@
+CREATE TABLE public.courses
+(
+    idcr integer,
+    cr_name character varying(255),
+    PRIMARY KEY (idcr)
+);
+
+ALTER TABLE public.courses
+    OWNER to postgres;
+
+CREATE TABLE public.lectors
+(
+    idl integer NOT NULL,
+    fn character varying(45) COLLATE pg_catalog."default",
+    ln character varying(45) COLLATE pg_catalog."default",
+    faculty character varying(10) COLLATE pg_catalog."default",
+    department character varying(45) COLLATE pg_catalog."default",
+    priority integer,
+    mon boolean,
+    tue boolean,
+    wed boolean,
+    thur boolean,
+    fri boolean,
+    sat boolean,
+    sun boolean,
+    CONSTRAINT lectors_pkey PRIMARY KEY (idl)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.lectors
+    OWNER to postgres;
+
+
+
+CREATE TABLE public.disciplines
+(
+    iddis integer,
+    idcr integer,
+    dis_name character varying(255),
+    idl integer,
+    hours integer,
+    distance_learning boolean,
+    control_form character varying(45),
+    PRIMARY KEY (iddis),
+    CONSTRAINT idcr_fk FOREIGN KEY (idcr)
+        REFERENCES public.courses (idcr) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT idl_fk FOREIGN KEY (idl)
+        REFERENCES public.lectors (idl) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+ALTER TABLE public.disciplines
+    OWNER to postgres;
+
+
+CREATE TABLE public.groups
+(
+    idgr integer,
+    idcr integer,
+    number_of_students integer,
+    PRIMARY KEY (idgr),
+    CONSTRAINT idcr_ffk FOREIGN KEY (idcr)
+        REFERENCES public.courses (idcr) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+ALTER TABLE public.groups
+    OWNER to postgres;
+
+
+CREATE TABLE public.audiences
+(
+    building integer,
+    "number" integer,
+    capacity integer,
+    PRIMARY KEY (building, "number")
+);
+
+ALTER TABLE public.audiences
+    OWNER to postgres;
